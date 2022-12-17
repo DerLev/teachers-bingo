@@ -12,42 +12,44 @@ on:
 
 jobs:
   lint-and-build:
-    name: Lint & Build
+    name: Lint and Build
     runs-on: ubuntu-latest
     if: ${{ !startsWith(github.event.head_commit.message, 'wip:') }}
     steps:
-      - name: Checkout repository
+      - name: Checkout Repository
         uses: actions/checkout@v3
-      - name: Setup NodeJS environment
+      - name: Setup Nodejs Environment
         uses: actions/setup-node@v3
         with:
           node-version: 16
           cache: "yarn"
           cache-dependency-path: ./webapp/yarn.lock
-      - name: Install dependencies
+      - name: Install Dependencies
         working-directory: ./webapp
         run: yarn
-      - name: Lint and build app
+      - name: Lint and Build App
         working-directory: ./webapp
         run: yarn build
   deploy-on-vercel:
-    name: Deploy on vercel
+    name: Deploy on Vercel
     runs-on: ubuntu-latest
     needs: lint-and-build
-    environment: Preview
+    environment:
+      name: Preview
+      url: ${{ steps.vercel_deploy.outputs.DEPLOY_URL }}
     env:
       VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
       VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
     steps:
-      - name: Checkout repository
+      - name: Checkout Repository
         uses: actions/checkout@v3
-      - name: Setup NodeJS environment
+      - name: Setup Nodejs Environment
         uses: actions/setup-node@v3
         with:
           node-version: 16
           cache: "yarn"
           cache-dependency-path: ./webapp/yarn.lock
-      - name: Install vercel cli
+      - name: Install Vercel CLI
         run: yarn global add vercel@latest
       - name: Pull Vercel Environment Information
         run: vercel pull --yes --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
@@ -59,5 +61,11 @@ jobs:
           echo "DEPLOY_URL=$(
             vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }}
           )" >> $GITHUB_OUTPUT
-      - name: print deploy url
-        run: echo ${{ steps.vercel_deploy.outputs.DEPLOY_URL }}
+      - name: Adding Job Summary
+        run: |
+          echo "### Build is live in preview :rocket:" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "This build got deployed on the following URLs:" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "- ${{ steps.vercel_deploy.outputs.DEPLOY_URL }}"
+          echo "- https://teachers-bingo-derlev.vercel.app/"
