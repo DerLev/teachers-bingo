@@ -57,4 +57,4 @@ jobs:
         run: vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }} >> $GITHUB_OUTPUT
         id: vercel_deploy
       - name: debug
-        run: echo "{{ join(steps.run_tests.outputs.*, '\n') }}"
+        run: echo "{{ join(steps.vercel_deploy.outputs.*, '\n') }}"
