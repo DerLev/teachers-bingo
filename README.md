@@ -1,5 +1,7 @@
 # Teacher's Bingo
 
+[![CI webapp](https://github.com/DerLev/teachers-bingo/actions/workflows/integration-webapp.yml/badge.svg?branch=main&event=push)](https://github.com/DerLev/teachers-bingo/actions/workflows/integration-webapp.yml)
+
 Techer's Bingo is a webapp and Flutter package that generates Bingos for boring 
 teaching lessons. You can select the teachers you have lessons with and check 
 fields everytime they say a commonly said quote.
