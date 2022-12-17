@@ -15,8 +15,22 @@ import {
 import {
   Menu as MenuIcon
 } from '@mui/icons-material'
+import { usePathname } from 'next/navigation'
+
+const values = {
+  title: 'Lehrerbingo',
+  navItems: [
+    { text: 'Erstellen', href: '/' }
+  ]
+}
+
+const pathsWithFixed = [
+  '/'
+]
 
 const Navbar = () => {
+  const pathname = usePathname()
+
   const [mobileOpen, setMobileOpen] = useState(false)
 
   const toggleDrawer = () => {
@@ -25,7 +39,10 @@ const Navbar = () => {
 
   return (
     <>
-      <AppBar position='sticky' component={'nav'}>
+      <AppBar
+        position={ pathsWithFixed.filter((path) => path == pathname).length ? 'fixed' : 'sticky' }
+        component={'nav'}
+      >
         <Toolbar>
           <IconButton
             size='large'
@@ -38,7 +55,7 @@ const Navbar = () => {
             <MenuIcon />
           </IconButton>
           <Typography variant='h6' component={'div'} className='flex-grow'>
-            Teacher&apos;s Bingo
+            { values.title }
           </Typography>
         </Toolbar>
       </AppBar>
@@ -53,15 +70,19 @@ const Navbar = () => {
       >
         <Box onClick={toggleDrawer} className='text-center'>
           <Typography variant="h6" className='my-2'>
-            Teacher&apos;s Bingo
+            { values.title }
           </Typography>
           <Divider />
           <List>
-            <ListItem disablePadding>
-              <ListItemButton sx={{ textAlign: 'center' }}>
-                <ListItemText primary={'Test'} />
-              </ListItemButton>
-            </ListItem>
+            {
+              values.navItems.map((item, index) => (
+                <ListItem disablePadding key={index}>
+                  <ListItemButton sx={{ textAlign: 'center' }}>
+                    <ListItemText primary={item.text} />
+                  </ListItemButton>
+                </ListItem>
+              ))
+            }
           </List>
         </Box>
       </Drawer>
