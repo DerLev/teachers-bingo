@@ -29,7 +29,7 @@ const handler = async (req: TeacherQuotesRequest, res: NextApiResponse) => {
 
   res.status(200).json({
     id: teacher.id,
-      // @ts-ignore
+    // @ts-ignore
     name: teacher.properties['name'].title[0].plain_text,
     // @ts-ignore
     gender: teacher.properties['gender'].select.name,
