@@ -1,6 +1,6 @@
 # Teacher's Bingo
 
-[![CI webapp](https://github.com/DerLev/teachers-bingo/actions/workflows/integration-webapp.yml/badge.svg?branch=main&event=push)](https://github.com/DerLev/teachers-bingo/actions/workflows/integration-webapp.yml)
+[![CI webapp](https://github.com/DerLev/teachers-bingo/actions/workflows/integration-webapp.yml/badge.svg?branch=main&event=push)](https://github.com/DerLev/teachers-bingo/actions/workflows/integration-webapp.yml) [![CI flutter](https://github.com/DerLev/teachers-bingo/actions/workflows/integration-flutter.yml/badge.svg?branch=main&event=push)](https://github.com/DerLev/teachers-bingo/actions/workflows/integration-flutter.yml)
 
 Techer's Bingo is a webapp and Flutter package that generates Bingos for boring 
 teaching lessons. You can select the teachers you have lessons with and check 
@@ -10,7 +10,7 @@ fields everytime they say a commonly said quote.
 
 * Inside the `webapp` folder you will find the webapp and the corresponsing API 
   programmed in NextJS
-* Inside the `flutter-client` folder you will find the Flutter client which 
+* Inside the `flutter_client` folder you will find the Flutter client which 
   intersects with the webapp's API
 
 ## Overall structure
