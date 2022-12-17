@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import Joi from 'joi'
-import { notion, config as notionConfig } from '@lib/notion'
+import { notion } from '@lib/notion'
 
 interface TeacherQuotesRequest extends NextApiRequest {
   body: {
