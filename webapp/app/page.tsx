@@ -6,6 +6,7 @@ const Home = () => (
   <Grid container height="100vh" alignItems="center" justifyContent="center" direction="column">
     <h1>Using Material UI with Next.js 13</h1>
     <h2>This is a new title</h2>
+    <h2>And another one</h2>
     <Stack direction="row" columnGap={1}>
       <Button variant="text">Text</Button>
       <Button variant="contained">Contained</Button>
