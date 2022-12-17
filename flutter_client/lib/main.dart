@@ -8,22 +8,20 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'Basic Example App',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
+      title: 'Basic Example App',
+      theme: ThemeData.light(),
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Text("Basic Example App"),
         ),
-        home: Scaffold(
-          appBar: AppBar(
-            title: const Text("Basic Example App"),
-          ),
-          body: const Center(
-            child: Text(
-              "lorem ipsum",
-              style: TextStyle(
-                fontSize: 20
-              ),
+        body: const Center(
+          child: Text(
+            "lorem ipsum",
+            style: TextStyle(
+              fontSize: 20
             ),
           ),
-        ));
+        ),
+      ));
   }
 }
