@@ -12,7 +12,7 @@ on:
 
 jobs:
   lint-and-build:
-    name: Lint and Build
+    name: Lint and Type Check
     runs-on: ubuntu-latest
     if: ${{ !startsWith(github.event.head_commit.message, 'wip:') }}
     steps:
@@ -27,9 +27,12 @@ jobs:
       - name: Install Dependencies
         working-directory: ./webapp
         run: yarn
-      - name: Lint and Build App
+      - name: Type Check
         working-directory: ./webapp
-        run: yarn build
+        run: yarn tsc
+      - name: Lint
+        working-directory: ./webapp
+        run: yarn lint
   deploy-on-vercel:
     name: Deploy on Vercel
     runs-on: ubuntu-latest
