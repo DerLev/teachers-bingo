@@ -15,15 +15,15 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ !startsWith(github.event.head_commit.message, 'wip:') }}
     steps:
-      - name: Checkout repository
+      - name: Checkout Repository
         uses: actions/checkout@v3
       - name: Setup Flutter CLI
         uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
-      - name: Install dependencies
+      - name: Install Dependencies
         working-directory: ./flutter_client
         run: flutter pub get
-      - name: Test app
+      - name: Test App
         working-directory: ./flutter_client
         run: flutter test

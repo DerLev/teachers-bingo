@@ -67,5 +67,5 @@ jobs:
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "This build got deployed on the following URLs:" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "- ${{ steps.vercel_deploy.outputs.DEPLOY_URL }}"
-          echo "- https://teachers-bingo-derlev.vercel.app/"
+          echo "- ${{ steps.vercel_deploy.outputs.DEPLOY_URL }}" >> $GITHUB_STEP_SUMMARY
+          echo "- https://teachers-bingo-derlev.vercel.app/ *(latest preview url)*" >> $GITHUB_STEP_SUMMARY
