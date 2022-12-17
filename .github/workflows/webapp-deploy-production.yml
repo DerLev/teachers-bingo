@@ -1,4 +1,4 @@
-name: webapp deploy production
+name: deploy webapp
 on:
   workflow_dispatch:
 
@@ -6,7 +6,6 @@ jobs:
   deploy-on-vercel:
     name: Deploy on Vercel
     runs-on: ubuntu-latest
-    needs: lint-and-build
     environment:
       name: Production
       url: ${{ steps.vercel_deploy.outputs.DEPLOY_URL }}
