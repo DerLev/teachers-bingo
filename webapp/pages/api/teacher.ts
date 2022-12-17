@@ -25,26 +25,17 @@ const handler = async (req: TeacherQuotesRequest, res: NextApiResponse) => {
     message: error.details[0].message
   })
 
-  const quotes = await notion.databases.query({
-    database_id: notionConfig.quotes,
-    filter: {
-      property: 'teacher',
-      relation: {
-        contains: req.body.id
-      }
-    }
-  })
-    .catch(() => res.status(500).json({ code: 500, message: 'something went wrong' }))
+  const teacher = await notion.pages.retrieve({ page_id: req.body.id })
 
-  const formattedQuotes = quotes?.results.map((quote) => {
-    return {
-      id: quote.id,
+  res.status(200).json({
+    id: teacher.id,
       // @ts-ignore
-      quote: quote.properties['quote'].title[0].plain_text
-    }
+    name: teacher.properties['name'].title[0].plain_text,
+    // @ts-ignore
+    gender: teacher.properties['gender'].select.name,
+    // @ts-ignore
+    quotes: teacher.properties['quotes'].relation.length,
   })
-
-  res.status(200).json(formattedQuotes)
 }
 
 export default handler
