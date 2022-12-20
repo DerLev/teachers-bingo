@@ -12,12 +12,11 @@ on:
         - Production
 
 jobs:
-  deploy-preview:
-    name: Deploy on Vercel (Preview)
+  deploy-vercel:
+    name: Deploy on Vercel
     runs-on: ubuntu-latest
-    if: inputs.deploymentType == 'Preview'
     environment:
-      name: Preview
+      name: ${{ inputs.deploymentType }}
       url: ${{ steps.vercel_deploy.outputs.DEPLOY_URL }}
     env:
       VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
@@ -34,62 +33,21 @@ jobs:
       - name: Install Vercel CLI
         run: yarn global add vercel@latest
       - name: Pull Vercel Environment Information
-        run: vercel pull --yes --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
+        run: vercel pull --yes $( [[ ${{ inputs.deploymentType }} = Production ]] && printf %s "--environment=production" ) --token=${{ secrets.VERCEL_TOKEN }}
       - name: Build Project Artifacts
-        run: vercel build --token=${{ secrets.VERCEL_TOKEN }}
+        run: vercel build $( [[ ${{ inputs.deploymentType }} = Production ]] && printf %s "--prod" ) --token=${{ secrets.VERCEL_TOKEN }}
       - name: Deploy Project Artifacts to Vercel
         id: vercel_deploy
         run: >-
           echo "DEPLOY_URL=$(
-            vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }}
+            vercel deploy --prebuilt $( [[ ${{ inputs.deploymentType }} = Production ]] && printf %s "--prod" ) --token=${{ secrets.VERCEL_TOKEN }}
           )" >> $GITHUB_OUTPUT
       - name: Adding Job Summary
         run: |
-          echo "### Build is live in preview :rocket:" >> $GITHUB_STEP_SUMMARY
+          echo "### Build is live in $( [[ ${{ inputs.deploymentType }} = Production ]] && printf %s "production" || printf %s "preview" ) :rocket:" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "This build got deployed on the following URLs:" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "- ${{ steps.vercel_deploy.outputs.DEPLOY_URL }}" >> $GITHUB_STEP_SUMMARY
           echo "- https://teachers-bingo-derlev.vercel.app/ *(latest preview url)*" >> $GITHUB_STEP_SUMMARY
-
-  deploy-production:
-    name: Deploy on Vercel (Production)
-    runs-on: ubuntu-latest
-    if: inputs.deploymentType == 'Production'
-    environment:
-      name: Production
-      url: ${{ steps.vercel_deploy.outputs.DEPLOY_URL }}
-    env:
-      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v3
-      - name: Setup Nodejs Environment
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16
-          cache: "yarn"
-          cache-dependency-path: ./webapp/yarn.lock
-      - name: Install Vercel CLI
-        run: yarn global add vercel@latest
-      - name: Pull Vercel Environment Information
-        run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
-      - name: Build Project Artifacts
-        run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
-      - name: Deploy Project Artifacts to Vercel
-        id: vercel_deploy
-        run: >-
-          echo "DEPLOY_URL=$(
-            vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
-          )" >> $GITHUB_OUTPUT
-      - name: Adding Job Summary
-        run: |
-          echo "### Build is live in production :rocket:" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "This build got deployed on the following URLs:" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "- ${{ steps.vercel_deploy.outputs.DEPLOY_URL }}" >> $GITHUB_STEP_SUMMARY
-          echo "- https://teachers-bingo-derlev.vercel.app/ *(latest preview url)*" >> $GITHUB_STEP_SUMMARY
-          echo "- https://teachers-bingo.vercel.app/ *(latest production url)*" >> $GITHUB_STEP_SUMMARY
-
+          echo $( [[ ${{ inputs.deploymentType }} = Production ]] && printf %s "- https://teachers-bingo.vercel.app/ *(latest production url)*" ) >> $GITHUB_STEP_SUMMARY
