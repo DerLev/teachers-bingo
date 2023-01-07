@@ -30,8 +30,8 @@ jobs:
         uses: RockLobster/archiving-upload-artifact@v0.2.2
         with:
           name: android-builds
-          directory: flutter_client/build/app/outputs
+          directory: flutter_client/
           path: |
-            */flutter-apk/**
-            */bundle/release/**
+            flutter_client/build/app/outputs/flutter-apk/**
+            flutter_client/build/app/outputs/bundle/release/**
 
