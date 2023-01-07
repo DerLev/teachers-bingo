@@ -28,7 +28,7 @@ jobs:
         working-directory: ./flutter_client
       - uses: actions/upload-artifact@v3
         with:
-          name: my-artifact
+          name: build-output
           path: |
             flutter_client/build/app/outputs/flutter-apk/app-release.apk
             flutter_client/build/app/outputs/bundle/release/app-release.aab
