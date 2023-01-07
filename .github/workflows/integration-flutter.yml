@@ -12,7 +12,7 @@ on:
       - "!**.md"
 
 jobs:
-  lint-and-build:
+  test:
     name: Running Tests
     runs-on: ubuntu-latest
     if: ${{ !startsWith(github.event.head_commit.message, 'wip:') }}
