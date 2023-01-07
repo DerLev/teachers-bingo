@@ -21,3 +21,4 @@ updates:
       - "DerLev"
     labels:
       - "dependabot/yarn"
+    open-pull-requests-limit: 10
