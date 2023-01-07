@@ -19,6 +19,10 @@ jobs:
         with:
           flutter-version: '3.0.5'
       - run: flutter pub get
+        working-directory: ./flutter_client
       - run: flutter test
+        working-directory: ./flutter_client
       - run: flutter build apk
+        working-directory: ./flutter_client
       - run: flutter build appbundle
+        working-directory: ./flutter_client
