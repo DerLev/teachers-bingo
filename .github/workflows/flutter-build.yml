@@ -26,12 +26,10 @@ jobs:
         working-directory: ./flutter_client
       - run: flutter build appbundle
         working-directory: ./flutter_client
-      - name: Archive and upload Build Artifacts
-        uses: RockLobster/archiving-upload-artifact@v0.2.2
+      - uses: actions/upload-artifact@v3
         with:
-          name: android-builds
-          directory: flutter_client/
+          name: my-artifact
           path: |
-            flutter_client/build/app/outputs/flutter-apk/**
-            flutter_client/build/app/outputs/bundle/release/**
+            flutter_client/build/app/outputs/flutter-apk/app-release.apk
+            flutter_client/build/app/outputs/bundle/release/app-release.aab
 
