@@ -27,8 +27,8 @@ jobs:
       - run: flutter build appbundle
         working-directory: ./flutter_client
       - name: Upload artifacts & release assets
-        uses: nanoufo/action-upload-artifacts-and-release-assets@v1.4
+        uses: nanoufo/action-upload-artifacts-and-release-assets@v1
         with:
           path: |
-            app-release.apk
+            flutter_client/build/app/outputs/flutter-apk/app-release.apk
 
