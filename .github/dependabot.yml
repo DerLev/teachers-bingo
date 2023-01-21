@@ -6,8 +6,6 @@ updates:
       interval: "weekly"
     assignees:
       - "DerLev"
-    reviewers:
-      - "DerLev"
     labels:
       - "dependabot/gh-actions"
 
@@ -16,8 +14,6 @@ updates:
     schedule:
       interval: "weekly"
     assignees:
-      - "DerLev"
-    reviewers:
       - "DerLev"
     labels:
       - "dependabot/yarn"
