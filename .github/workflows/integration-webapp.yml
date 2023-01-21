@@ -40,8 +40,8 @@ jobs:
       - name: Annotate Code
         uses: DerLev/eslint-annotations@v1
         with:
-          eslint-report: eslint_report.json
-          typescript-log: typescript.log
+          eslint-report: webapp/eslint_report.json
+          typescript-log: webapp/typescript.log
           error-on-warn: true
   deploy-on-vercel:
     name: Deploy on Vercel
