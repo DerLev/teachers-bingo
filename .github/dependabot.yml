@@ -9,12 +9,12 @@ updates:
     labels:
       - "dependabot/gh-actions"
 
-  - package-ecosystem: "npm"
-    directory: "/webapp/"
-    schedule:
-      interval: "weekly"
-    assignees:
-      - "DerLev"
-    labels:
-      - "dependabot/yarn"
-    open-pull-requests-limit: 10
+#  - package-ecosystem: "npm"
+#    directory: "/webapp/"
+#    schedule:
+#      interval: "weekly"
+#    assignees:
+#      - "DerLev"
+#    labels:
+#      - "dependabot/yarn"
+#    open-pull-requests-limit: 10
